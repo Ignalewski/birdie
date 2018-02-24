@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class NotesController extends Controller
 {
+
+    public function index() {
+        $notes = Note::with('user')->get()->toArray();
+        return view('welcome', compact('notes'));
+    }
+
+    public function home() {
+        $notes = Note::with('user')->where('user_id', Auth::id())->get()->toArray();
+        return view('home', compact('notes'));
+    }
+
     public function add_note() {
         return view('add_note');
     }
